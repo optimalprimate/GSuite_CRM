@@ -1,5 +1,4 @@
-/*Code to find changes to be made and then update them back to the original file i.e. 2 way linking
-Lucien West 2018 */
+/*Code to find changes to be made and then update them back to the original file i.e. 2 way linking  */
 //This version tests whether it can be used across different spreadsheets - update a remote CRM
 
 
@@ -9,7 +8,7 @@ Lucien West 2018 */
     //first, the current sheet must be defined
     var sheet_whole = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = sheet_whole.getSheetByName('Input');
-    var sheet_whole2 = SpreadsheetApp.openById('10j3Zuxu1oX9PAxRPOU0FHhCxPCfe1QZxR3EbfdcSLEk'); //open the CRM spreadsheet to write to
+    var sheet_whole2 = SpreadsheetApp.openById('OUTPUT SOURCE SHEET ID'); //open the spreadsheet to write to
     var sheet2 = sheet_whole2.getSheetByName('CRM'); //open the tabto write to
   
     for (i = 1; i < 45; i++){
