@@ -1,0 +1,55 @@
+/*Code to find changes to be made and then update them back to the original file i.e. 2 way linking
+Lucien West 2018 */
+//This version tests whether it can be used across different spreadsheets - update a remote CRM
+
+
+  //findChanges updates the original data with values that are next to them (linking indirectly via the Input! sheet)
+
+  function findChanges(){
+    //first, the current sheet must be defined
+    var sheet_whole = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = sheet_whole.getSheetByName('Input');
+    var sheet_whole2 = SpreadsheetApp.openById('10j3Zuxu1oX9PAxRPOU0FHhCxPCfe1QZxR3EbfdcSLEk'); //open the CRM spreadsheet to write to
+    var sheet2 = sheet_whole2.getSheetByName('CRM'); //open the tabto write to
+  
+    for (i = 1; i < 45; i++){
+      var j = i+9; //value for actual cell range
+      var cell = "C"+ j; //generate cell location for each cell to go one by one
+    
+      var celldest_holder = "F" + j; //loads the location of the cell that holds the CRM location
+   //if cell is NOT blank, then copy its values to the destination cells
+      if (sheet.getRange(cell).getValue() !==""){
+        //get location
+        var CRMcellloc = sheet.getRange(celldest_holder).getValue();
+        Logger.log(CRMcellloc);
+        
+        sheet2.getRange(CRMcellloc).setValues(sheet.getRange(cell).getValues());
+         
+  }
+      if (sheet.getRange(cell).getValue() =="XXX"){ //this is to write a blank to the target cell, i.e. clear its contents
+        //get location
+        var CRMcellloc = sheet.getRange(celldest_holder).getValue();
+        Logger.log(CRMcellloc);
+        
+        sheet2.getRange(CRMcellloc).clearContent();
+         
+  }
+  
+}
+    clearChanges(); //clears the changes made
+  }
+//function to clear the change boxes after changes made
+function clearChanges(){
+//for all cells, if getFormula contains 'indirect', cell_location = cell column + 1, clear cell (IDEALLY)
+  //For now: clear specific range
+  
+  var sheet_whole = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = sheet_whole.getSheetByName('Input_Form');
+  var input_range1 = sheet.getRange('Input_Form!C3:C19');
+  var input_range2 = sheet.getRange('Input_Form!F4:F8');
+  input_range1.clearContent();
+  input_range2.clearContent();
+ 
+}
+
+
